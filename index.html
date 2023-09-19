@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Malmstone Calculator</title>
+	<style>
+		body{
+			padding: 0;margin: 0;
+			background-image: url("res/Wolves'_Den.jpg");
+			font-family: sans-serif;
+		}
+		main{
+			position: fixed;
+			width: 100%;height: 100%;
+			backdrop-filter: blur(8px) grayscale(80%) brightness(0.4);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.modal{
+			background: rgb(255, 255, 255);
+			padding: 30px;
+			width: 50%;
+
+		}
+		.levelInput{
+			display: flex;
+			flex-direction: column;
+		}
+
+		input{
+			border: none;
+			border-bottom: 2px solid #000;
+		}
+		input:focus{
+			outline: none;
+		}
+		.info{
+			font-size: large;
+			font-weight: bold;
+			color: rgb(74, 24, 114);
+			text-shadow:rgba(221, 221, 173, 0.2) 2px 2px 1px;
+			margin: 10px;
+		}
+
+		.grid{
+			display: grid;grid-template-columns: repeat(3, 1fr);
+		}
+	
+	</style>
+</head>
+<body>	
+	<main>
+		<div class="modal">
+			<div style="font-size: 24px;font-weight:bold">Series Malmstones calculator</div>
+			<hr style="margin:20px 0"/>
+			<div class="levelInput">
+				Series Level :
+				<div>
+					<label style="font-size: 24px;">Current <input type="number" class="current_level" style="font-size: 24px;width: 50px;text-align: center;" value="1" min="1" max="29"/></label>
+					<label style="font-size: 24px;">Wanted <input type="number" class="wanted_level" style="font-size: 24px;width: 50px;text-align:center;" value="25" min="1" max="30"/></label>
+				</div>
+				<progress min="0" max="2000" value="0" style="width:100%;margin:10px 0;"></progress>
+				<div style="display:flex;justify-content: end;align-items: center;"><input type="number" class="current_exp" style="width:80px;font-size: 14px;text-align: end;" value="0"/>/<div class="expforlevel" style="font-size: 14px;">2000</div><img src="res/seriesXP.png" height="24px"/></div>
+			</div>
+			<hr/>
+			<div style="font-size:25px;">
+				<span class="expleft" ></span><img src="res/seriesXP.png" height="30px"/> left
+			</div>
+			<hr/>
+			- or - 
+			<hr/>
+			<div>
+				<div style="margin-bottom: 20px;">Frontline</div>
+				<div class="grid">
+					<div><span class="info f1">0</span> 1st place</div>
+					<div><span class="info f2">0</span> 2nd place</div>
+					<div><span class="info f3">0</span> 3rd place</div>
+				</div>
+				<div class="grid">
+					<div><span class="info fd1">0</span> on daily roulette</div>
+					<div><span class="info fd2">0</span> on daily roulette</div>
+					<div><span class="info fd3">0</span> on daily roulette</div>
+				</div>
+			</div>	
+			<hr/>
+			<div>
+				<div style="margin-bottom: 20px;">Crystaline Conflict</div>
+				<div class="grid">
+					<div><span class="info ccwin">0</span> Victory</div>
+					<div><span class="info ccloss">0</span> Defeat</div>
+				</div>
+			</div>	
+			<hr/>
+			<div>
+				<div style="margin-bottom: 20px;">Rival Wing</div>
+				<div class="grid">
+					<div><span class="info rwwin">0</span> Victory</div>
+					<div><span class="info rwloss">0</span> Defeat</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script>
+
+		document.querySelectorAll("input").forEach((x)=>{
+			x.addEventListener("change",(e)=>{
+				calcMalmstone();
+			});
+		});
+
+
+
+
+
+
+		const LEVEL_PROG = [2000,2000,2000,2000,3000,3000,3000,3000,3000,4000,4000,4000,4000,4000,5500,5500,5500,
+							5500,5500,7500,7500,7500,7500,7500,10000,10000,10000,10000,10000,20000,20000];
+		var expPerPVPtype = {
+			f1:1500,f2:1250,f3:1000,
+			fd1:3000,fd2:2750,fd3:2500,
+			ccwin:900,ccloss:700,
+			rwwin:1250,rwloss:750
+		}
+
+		function getExpNeeded(current_level,wanted_level){
+			var expneeded = 0;
+			for(var i = current_level-1;i<wanted_level-1;i++){expneeded+=LEVEL_PROG[i];}
+			return expneeded;
+		}
+
+		function calcMalmstone(){
+			var current_level = document.querySelector(".current_level").value;
+			var current_exp = document.querySelector(".current_exp").value;
+			var wanted_level = document.querySelector(".wanted_level").value;
+
+			document.querySelector("progress").setAttribute("max",LEVEL_PROG[current_level-1]);
+			document.querySelector(".expforlevel").innerHTML = LEVEL_PROG[current_level-1];
+			document.querySelector("progress").setAttribute("value",current_exp);
+			
+			var expneeded = getExpNeeded(current_level,wanted_level)-current_exp;
+			for (const [key, value] of Object.entries(expPerPVPtype)) {
+				document.querySelector("."+key).innerHTML = Math.ceil(expneeded/value);
+			}
+			document.querySelector(".expleft").innerHTML = expneeded;
+		}
+
+		calcMalmstone();
+
+
+	</script>	
+</body>
+</html>
