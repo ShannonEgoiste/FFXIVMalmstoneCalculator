@@ -20,17 +20,22 @@
 		}
 
 		.modal{
-			background: rgb(255, 255, 255);
+			color:#112;
+			background: rgb(250, 249, 246);
+			border-radius:10px;
 			padding: 30px;
-			width: 50%;
-
+			width: 75%;
 		}
+
+
 		.levelInput{
 			display: flex;
 			flex-direction: column;
 		}
 
 		input{
+			color:inherit;
+			background:none;
 			border: none;
 			border-bottom: 2px solid #000;
 		}
@@ -44,10 +49,50 @@
 			text-shadow:rgba(221, 221, 173, 0.2) 2px 2px 1px;
 			margin: 10px;
 		}
-
-		.grid{
-			display: grid;grid-template-columns: repeat(3, 1fr);
+		.credit{
+			color:rgba(0,0,0,0.4);font-size:12px;
 		}
+
+		@media (prefers-color-scheme: dark) {
+			.modal{
+				color:#FFF;
+				background-color: rgba(10,15,20);
+				
+			}
+			input{
+				border-bottom-color:#FFF;
+			}
+			.info{
+				color: 	rgb(250, 249, 246);
+				text-shadow:rgba(221, 221, 173, 0.5) 2px 2px 1px;
+			}
+			.credit{
+				color:rgba(255,255,255,0.6);font-size:12px;
+			}
+		}
+		
+		
+		@media sscreen and (orientation: portrait) {
+			.grid{
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				border-bottom:2px solid #F00;
+			}		
+		}
+		@media screen and (orientation: landscape) {		
+			.grid{
+				display: grid;grid-template-columns: repeat(3, 1fr);
+			}
+			.levelInputbreak{
+				display:flex;
+				flex-direction:rows;
+			}
+		}
+		a{
+			text-decoration:none;
+			color:inherit;
+		}
+	
 	
 	</style>
 </head>
@@ -55,12 +100,13 @@
 	<main>
 		<div class="modal">
 			<div style="font-size: 24px;font-weight:bold">Series Malmstones calculator</div>
+			<div class="credit">by <a href="https://fr.finalfantasyxiv.com/lodestone/character/45882898/">Menthe Egoiste</a></div>
 			<hr style="margin:20px 0"/>
 			<div class="levelInput">
 				Series Level :
-				<div>
-					<label style="font-size: 24px;">Current <input type="number" class="current_level" style="font-size: 24px;width: 50px;text-align: center;" value="1" min="1" max="29"/></label>
-					<label style="font-size: 24px;">Wanted <input type="number" class="wanted_level" style="font-size: 24px;width: 50px;text-align:center;" value="25" min="1" max="30"/></label>
+				<div class="levelInputbreak">
+					<div><label style="font-size: 24px;margin-right:20px">Current <input type="number" class="current_level" style="font-size: 24px;width: 50px;text-align: center;" value="1" min="1" max="29"/></label></div>
+					<div><label style="font-size: 24px;">Wanted <input type="number" class="wanted_level" style="font-size: 24px;width: 50px;text-align:center;" value="25" min="1" max="30"/></label></div>
 				</div>
 				<progress min="0" max="2000" value="0" style="width:100%;margin:10px 0;"></progress>
 				<div style="display:flex;justify-content: end;align-items: center;"><input type="number" class="current_exp" style="width:80px;font-size: 14px;text-align: end;" value="0"/>/<div class="expforlevel" style="font-size: 14px;">2000</div><img src="res/seriesXP.png" height="24px"/></div>
@@ -75,14 +121,14 @@
 			<div>
 				<div style="margin-bottom: 20px;">Frontline</div>
 				<div class="grid">
-					<div><span class="info f1">0</span> 1st place</div>
-					<div><span class="info f2">0</span> 2nd place</div>
-					<div><span class="info f3">0</span> 3rd place</div>
+					<div><span class="info f1">0</span> 1st place (<span class="fd1">0</span> on daily roulette)</div>
+					<div><span class="info f2">0</span> 2nd place (<span class="fd2">0</span> on daily roulette)</div>
+					<div><span class="info f3">0</span> 3rd place (<span class="fd3">0</span> on daily roulette)</div>
 				</div>
 				<div class="grid">
-					<div><span class="info fd1">0</span> on daily roulette</div>
-					<div><span class="info fd2">0</span> on daily roulette</div>
-					<div><span class="info fd3">0</span> on daily roulette</div>
+					<div></div>
+					<div></div>
+					<div></div>
 				</div>
 			</div>	
 			<hr/>
