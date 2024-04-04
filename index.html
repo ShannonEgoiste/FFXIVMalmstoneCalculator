@@ -49,15 +49,14 @@
 			text-shadow:rgba(221, 221, 173, 0.2) 2px 2px 1px;
 			margin: 10px;
 		}
-		.credit{
-			color:rgba(0,0,0,0.4);font-size:12px;
+		.sub{
+			color:rgba(0,0,0,0.4);
 		}
 
 		@media (prefers-color-scheme: dark) {
 			.modal{
 				color:#FFF;
 				background-color: rgba(10,15,20);
-				
 			}
 			input{
 				border-bottom-color:#FFF;
@@ -66,9 +65,11 @@
 				color: 	rgb(250, 249, 246);
 				text-shadow:rgba(221, 221, 173, 0.5) 2px 2px 1px;
 			}
-			.credit{
-				color:rgba(255,255,255,0.6);font-size:12px;
+			.sub{
+				color:rgba(255,255,255,0.6);
 			}
+
+
 		}
 		
 		
@@ -93,7 +94,7 @@
 			color:inherit;
 		}
 	</style>
-	<meta property="og:title" content="FFXIV Malmstone Calculator" />
+	<meta property="og:title" content="FFXIV Malmstone Calcultor" />
 	<meta property="og:description" content="how many Frontline/CC match i still need to do ?!">
 	<meta property="og:image" content="https://static.wikia.nocookie.net/finalfantasy/images/f/f5/Trophy_Crystal_from_Final_Fantasy_XIV_icon.png?format=original">
 	<meta property="og:url" content="https://shannonegoiste.github.io/FFXIVMalmstoneCalculator/">
@@ -102,8 +103,13 @@
 <body>	
 	<main>
 		<div class="modal">
-			<div style="font-size: 24px;font-weight:bold">Series Malmstones calculator</div>
-			<div class="credit">by <a href="https://fr.finalfantasyxiv.com/lodestone/character/45882898/">Menthe Egoiste</a></div>
+			<div>
+				<span style="font-size: 30px;">Series Malmstones calculator</span>
+				<span class="sub" style="font-size:18px;margin-left: 10px;">
+					(<span class="nextSeries"></span> until next Series)
+				</span>
+			</div>
+			<div class="sub" style="margin-top: 6px;">by <a href="https://fr.finalfantasyxiv.com/lodestone/character/45882898/">Menthe Egoiste</a></div>
 			<hr style="margin:20px 0"/>
 			<div class="levelInput">
 				Series Level :
@@ -153,17 +159,20 @@
 		</div>
 	</main>
 	<script>
+		const DateTilNextSeries = new Date("2024-07-01T10:00:00");
+		var dateDom = document.querySelector(".nextSeries");
+		var timeLeft = Math.floor((DateTilNextSeries - Date.now())/86400000);
+		dateDom.innerHTML = timeLeft+" days";
+
+
+	</script>
+	<script>
 
 		document.querySelectorAll("input").forEach((x)=>{
 			x.addEventListener("change",(e)=>{
 				calcMalmstone();
 			});
 		});
-
-
-
-
-
 
 		const LEVEL_PROG = [2000,2000,2000,2000,3000,3000,3000,3000,3000,4000,4000,4000,4000,4000,5500,5500,5500,
 							5500,5500,7500,7500,7500,7500,7500,10000,10000,10000,10000,10000,20000,20000];
