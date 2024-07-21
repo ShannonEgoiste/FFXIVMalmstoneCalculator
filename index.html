@@ -106,7 +106,7 @@
 			<div>
 				<span style="font-size: 30px;">Series Malmstones calculator</span>
 				<span class="sub" style="font-size:18px;margin-left: 10px;">
-					(<span class="nextSeries"></span> until next Series)
+					(<span class="nextSeries"></span>)
 				</span>
 			</div>
 			<div class="sub" style="margin-top: 6px;">by <a href="https://fr.finalfantasyxiv.com/lodestone/character/45882898/">Menthe Egoiste</a></div>
@@ -162,7 +162,7 @@
 		const DateTilNextSeries = new Date("2024-07-01T10:00:00");
 		var dateDom = document.querySelector(".nextSeries");
 		var timeLeft = Math.floor((DateTilNextSeries - Date.now())/86400000);
-		dateDom.innerHTML = timeLeft+" days";
+		dateDom.innerHTML = "until early november"//timeLeft+" days until next Series";
 
 
 	</script>
